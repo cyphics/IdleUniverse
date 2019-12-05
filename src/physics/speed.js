@@ -1,19 +1,23 @@
-import {distanceUnit} from "./distance";
-import {timeUnit} from "./time";
+import { distanceStandard } from './distanceStandard';
+import { timeStandard } from './timeStandard';
 
 class Speed {
-    constructor(value = 0, distanceUnit = distanceUnit.yoctometer, timeUnit = timeUnit.millisecond) {
-        this.absolute_value = value * distanceUnit.value;
-        this.distanceUnit = distanceUnit;
-        this.timeUnit = timeUnit;
-        this.getValue = function (unit = this.distanceUnit) {
-            return this.absolute_value / distanceUnit.value
-        }
-    }
+  constructor(
+    value = 0,
+    currentDistanceUnit = distanceStandard.yoctometer,
+    currentTimeUnit = timeStandard.millisecond,
+  ) {
+    this.absolute_value = value * currentDistanceUnit.value;
+    this.distanceUnit = currentDistanceUnit;
+    this.timeUnit = currentTimeUnit;
+    this.getValue = function (unit = this.distanceUnit) {
+      return this.absolute_value / currentDistanceUnit.value;
+    };
+  }
 
-    toString() {
-        return ""
-    }
+  toString() {
+    return '';
+  }
 }
 
-export {Speed}
+export { Speed };
