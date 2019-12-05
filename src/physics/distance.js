@@ -1,7 +1,7 @@
 import {numToString} from "./physicsUtils";
 
 class Distance {
-    constructor(value = 1, unit = distanceUnit.yoctometer) {
+    constructor(value = 0, unit = distanceUnit.yoctometer) {
         this.value = value * unit.value;
         this.unit = unit;
         this.getValue = function (unit = this.unit) {

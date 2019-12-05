@@ -93,6 +93,10 @@ describe('Distances creation', () => {
 });
 
 describe('Distances toString', () => {
+    it('empty distance', () => {
+        let under_test = new Distance();
+        expect(under_test.toString()).to.eql("0 yoctometer");
+    });
     it('1, yoctometer', () => {
         let under_test = new Distance(1, distanceUnit.yoctometer);
         expect(under_test.toString()).to.eql("1 yoctometer");

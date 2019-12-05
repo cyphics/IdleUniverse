@@ -1,7 +1,7 @@
 import {numToString} from "./physicsUtils";
 
 class Time {
-    constructor(value = 1, unit = timeUnit.millisecond) {
+    constructor(value = 0, unit = timeUnit.millisecond) {
         this.absolute_value = value * unit.value;
         this.unit = unit;
         this.getValue = function (unit = this.unit) {
@@ -55,6 +55,8 @@ class Time {
         if (minutes > 0)
             return output;
         output = addTimeInString(output, millisec, "millisecond");
+
+        if (output === "") return "0 millisecond";
         return output;
     }
 

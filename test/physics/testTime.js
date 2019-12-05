@@ -41,6 +41,10 @@ describe('time units', () => {
 
 
 describe('Time creation', () => {
+    it('build empty Time()', () => {
+        let under_test = new Time();
+        expect(under_test.getValue(timeUnit.millisecond)).to.eql(0);
+    });
     it('build Time()', () => {
         let under_test = new Time(1, timeUnit.millisecond);
         expect(under_test.getValue(timeUnit.millisecond)).to.eql(1);
@@ -66,6 +70,10 @@ describe('Time creation', () => {
 });
 
 describe('Time toString', () => {
+    it('empty time', () => {
+        let under_test = new Time();
+        expect(under_test.toString()).to.eql("0 millisecond");
+    });
     it('1, millisecond', () => {
         let under_test = new Time(1, timeUnit.millisecond);
         expect(under_test.toString()).to.eql("1 millisecond");
