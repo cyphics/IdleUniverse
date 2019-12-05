@@ -4,9 +4,9 @@ import { timeStandard } from './timeStandard';
 class Time {
   constructor(value = 0, unit = timeStandard.millisecond) {
     this.absolute_value = value * unit.value;
-    this.unit = unit;
-    this.getValue = function (unit = this.unit) {
-      return this.absolute_value / unit.value;
+    this.value = function (requiredUnit = null) {
+      if (requiredUnit === null) return this.absolute_value;
+      return this.absolute_value / requiredUnit.value;
     };
   }
 
@@ -22,7 +22,7 @@ class Time {
     let years = 0;
     const galac = (total / timeStandard.galactic_year.value);
 
-    if (galac > 1) return `${numToString(galac)} ` + 'galactic year';
+    if (galac > 1) return `${numToString(galac)} galactic year`;
 
     years = Math.floor(total / timeStandard.year.value);
     total %= timeStandard.year.value;

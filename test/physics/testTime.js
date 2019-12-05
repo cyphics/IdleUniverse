@@ -39,29 +39,24 @@ describe('time units', () => {
 describe('Time creation', () => {
   it('build empty Time()', () => {
     const actual = new Time();
-    expect(actual.getValue(timeStandard.millisecond)).to.eql(0);
+    expect(actual.value(timeStandard.millisecond)).to.eql(0);
   });
   it('build Time()', () => {
     const actual = new Time(1, timeStandard.millisecond);
-    expect(actual.getValue(timeStandard.millisecond)).to.eql(1);
-  });
-
-  it('default absolute_value', () => {
-    const actual = new Time(1, timeStandard.second);
-    expect(actual.getValue()).to.eql(1);
+    expect(actual.value(timeStandard.millisecond)).to.eql(1);
   });
   it('absolute absolute_value minute', () => {
     const actual = new Time(1, timeStandard.hour);
-    expect(actual.getValue(timeStandard.millisecond)).to.eql(3600000);
+    expect(actual.value(timeStandard.millisecond)).to.eql(3600000);
   });
 
   it('smaller unit', () => {
     const actual = new Time(1, timeStandard.hour);
-    expect(actual.getValue(timeStandard.minute)).to.eql(60);
+    expect(actual.value(timeStandard.minute)).to.eql(60);
   });
   it('bigger unit', () => {
     const actual = new Time(1, timeStandard.hour);
-    expect(actual.getValue(timeStandard.day)).to.eql(0.041666666666666664);
+    expect(actual.value(timeStandard.day)).to.eql(0.041666666666666664);
   });
 });
 

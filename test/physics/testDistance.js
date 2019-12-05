@@ -67,23 +67,19 @@ describe('distance units', () => {
 describe('Distances creation', () => {
   it('build Distance object', () => {
     const actual = new Distance(1, distanceStandard.yoctometer);
-    expect(actual.getValue(distanceStandard.yoctometer)).to.eql(1);
+    expect(actual.value(distanceStandard.yoctometer)).to.eql(1);
   });
   it('absolute absolute_value', () => {
     const actual = new Distance(1, distanceStandard.femtometer);
-    expect(actual.getValue(distanceStandard.yoctometer)).to.eql(1e+9);
-  });
-  it('default absolute_value', () => {
-    const actual = new Distance(1, distanceStandard.femtometer);
-    expect(actual.getValue()).to.eql(1);
+    expect(actual.value(distanceStandard.yoctometer)).to.eql(1e+9);
   });
   it('smaller unit', () => {
     const actual = new Distance(1, distanceStandard.femtometer);
-    expect(actual.getValue(distanceStandard.attometer)).to.eql(1000);
+    expect(actual.value(distanceStandard.attometer)).to.eql(1000);
   });
   it('bigger unit', () => {
     const actual = new Distance(1, distanceStandard.femtometer);
-    expect(actual.getValue(distanceStandard.picometer)).to.eql(0.001);
+    expect(actual.value(distanceStandard.picometer)).to.eql(0.001);
   });
 });
 
