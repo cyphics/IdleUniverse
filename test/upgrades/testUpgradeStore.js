@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { describe } from 'mocha';
 import { UpgradeStore } from '../../src/upgrades/UpgradeStore';
 import { upgradesId } from '../../src/upgrades/Upgrade';
-import { UpgradeManager } from '../../src/upgrades/upgradeManager';
+import { UpgradeManager } from '../../src/upgrades/UpgradeManager';
 import { ResourcesStock } from '../../src/resources/ResourcesStock';
 import {resourceId} from "../../src/resources/Resource";
 
@@ -54,5 +54,23 @@ describe('buy upgrades', () => {
     const store = new UpgradeStore(manager, stock);
     const result = store.buyUpgrade(upgradesId.st_terminal);
     expect(result).to.be.true;
+  });
+  it('buy first upgrade and check available', () => {
+    const manager = new UpgradeManager();
+    const stock = new ResourcesStock();
+    stock.addResource(resourceId.kinetic_energy, 10);
+    const store = new UpgradeStore(manager, stock);
+    store.buyUpgrade(upgradesId.st_terminal);
+    const upgrades = store.availableUpgrades;
+    expect(upgrades.includes(upgradesId.sc_quantum_magnetism)).to.be.true;
+  });
+  it('check stock depleted after purchase', () => {
+    const manager = new UpgradeManager();
+    const stock = new ResourcesStock();
+    stock.addResource(resourceId.kinetic_energy, 20);
+    const store = new UpgradeStore(manager, stock);
+    store.buyUpgrade(upgradesId.st_terminal);
+    const remainingStock = stock.getCurrentAmount(resourceId.kinetic_energy);
+    expect(remainingStock).to.eql(10);
   });
 });

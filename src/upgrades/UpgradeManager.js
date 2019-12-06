@@ -1,5 +1,4 @@
 import { getCompleteUpgradesList } from './Upgrade';
-import {Price} from "../resources/Price";
 
 class UpgradeManager {
   constructor() {
@@ -17,6 +16,10 @@ class UpgradeManager {
       if (upgrade.id === requiredId) result = upgrade;
     });
     return result;
+  }
+
+  getAmountBought(upgradeId) {
+    return this.getUpgradeById(upgradeId).amount_bought;
   }
 
   getAvailableUpgrades() {

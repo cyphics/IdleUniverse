@@ -1,5 +1,5 @@
 import { resourceId } from '../resources/Resource';
-import {Price, ResourceAmount} from "../resources/Price";
+import { Price, ResourceAmount } from '../resources/Price';
 
 const upgradeTypes = {
   incremental: 'upgrade_type_incremental',
@@ -14,6 +14,7 @@ const upgradesId = {
   st_quantum_generator: 'Quantum Generator',
   sc_kinetic_power: 'Kinetic Power',
   i_quantum_coil: 'Quantic coil',
+  i_energy_cell_a: 'Quantum energy cell',
 };
 
 class Upgrade {
@@ -67,6 +68,12 @@ function getCompleteUpgradesList() {
       null,
       1.2,
       [upgradesId.st_quantum_generator]),
+    new Upgrade(upgradesId.i_energy_cell_a,
+      upgradeTypes.incremental,
+      'Add throttle',
+      new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]),
+      1.2,
+      []),
   ];
 }
 

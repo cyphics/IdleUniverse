@@ -10,6 +10,8 @@ class UpgradeStore {
     const priceToPay = this.manager.getPrice(id);
     if (this.stock.canPriceBePayed(priceToPay)) {
       this.stock.takePrice(priceToPay);
+      this.manager.buyUpgrade(id);
+      this.updateAvailableUpgrades();
       return true;
     }
     return false;
