@@ -5,6 +5,8 @@ import { Distance } from '../../src/physics/Distance';
 import { Speed } from '../../src/physics/speed';
 import { Acceleration } from '../../src/physics/Acceleration';
 import { Time } from '../../src/physics/time';
+import { distanceStandard } from '../../src/physics/distanceStandard';
+import { timeStandard } from '../../src/physics/timeStandard';
 
 describe('getTraveledDistance()', () => {
   it('speed 0, duration 0, acceleration 0', () => {
@@ -52,7 +54,30 @@ describe('getRemainingTime', () => {
     const acceleration = new Acceleration();
     expect(PhysicsComputer.getRemainingTime(distance, speed, acceleration).value()).to.eql(1);
   });
-  // it('distance 0, speed 1, acceleration 1', () => {
-  //     expect(PhysicsComputer.getRemainingTime(1, 0, 1)).to.eql(0.5);
-  // });
+  it('infinity', () => {
+    const distance = new Distance(1);
+    const speed = new Speed();
+    const acceleration = new Acceleration();
+    expect(PhysicsComputer.getRemainingTime(distance, speed, acceleration).value()).to.eql(-Infinity);
+  });
+  it('universe, 1, 0', () => {
+    const distance = new Distance(1, distanceStandard.diameter_universe);
+    const speed = new Speed(1);
+    const acceleration = new Acceleration();
+    expect(PhysicsComputer.getRemainingTime(distance, speed, acceleration).toString()).to.eql('1.1965965061802576e+32 galactic year');
+  });
+  it('universe, 1, 1', () => {
+    const distance = new Distance(1, distanceStandard.diameter_universe);
+    const speed = new Speed(1);
+    const acceleration = new Acceleration(1);
+    const expected = '5\'705\'042 galactic year';
+    expect(PhysicsComputer.getRemainingTime(distance, speed, acceleration).toString()).to.eql(expected);
+  });
+  it('universe, meter, second', () => {
+    const distance = new Distance(1, distanceStandard.diameter_universe);
+    const speed = new Speed(1, distanceStandard.meter, timeStandard.second);
+    const acceleration = new Acceleration(0);
+    const expected = '119\'659\'650\'618 galactic year';
+    expect(PhysicsComputer.getRemainingTime(distance, speed, acceleration).toString()).to.eql(expected);
+  });
 });

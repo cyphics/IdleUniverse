@@ -98,15 +98,18 @@ describe('Distances toString', () => {
   });
   it('1 billion yoctometer', () => {
     const actual = new Distance(1, distanceStandard.femtometer);
-    expect(actual.toString(distanceStandard.yoctometer)).to.eql('1 billion yoctometer');
+    const expected = "1'000'000'000 yoctometer";
+    expect(actual.toString(distanceStandard.yoctometer)).to.eql(expected);
   });
   it('scientific notation', () => {
     const actual = new Distance(1, distanceStandard.meter);
     expect(actual.toString(distanceStandard.yoctometer)).to.eql('1e+24 yoctometer');
   });
   it('scientific notation 2', () => {
-    const actual = new Distance(1, distanceStandard.nanometer);
-    expect(actual.toString(distanceStandard.yoctometer)).to.eql('1e+15 yoctometer');
+    const distance = new Distance(1, distanceStandard.nanometer);
+    const distToString = distance.toString(distanceStandard.yoctometer);
+    const expected = '1e+15 yoctometer';
+    expect(distToString).to.eql(expected);
   });
   it('meter', () => {
     const actual = new Distance(1, distanceStandard.meter);
@@ -118,7 +121,8 @@ describe('Distances toString', () => {
   });
   it('thousand kilometers', () => {
     const actual = new Distance(1000, distanceStandard.kilometer);
-    expect(actual.toString()).to.eql('1 thousand kilometer');
+    const expected = "1'000 kilometer";
+    expect(actual.toString()).to.eql(expected);
   });
   it('a lot of kilometers', () => {
     const actual = new Distance(1.496e+8, distanceStandard.kilometer);

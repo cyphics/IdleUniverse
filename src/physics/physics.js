@@ -28,7 +28,7 @@ export default class PhysicsComputer {
 
     if (acceleration === 0) {
       if (speed === 0) {
-        return Math.max();
+        return new Time(Math.max());
       }
       return new Time(distance / speed);
     }
