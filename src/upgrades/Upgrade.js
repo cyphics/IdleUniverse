@@ -11,7 +11,9 @@ const upgradeTypes = {
 const upgradesId = {
   st_terminal: 'Terminal',
   sc_quantum_magnetism: 'Quantum Magnetism',
+  sc_quantic_expulsion: 'Quantic Expulsion',
   st_quantum_generator: 'Quantum Generator',
+  st_quantum_throttle: 'Quantum Throttle',
   sc_kinetic_power: 'Kinetic Power',
   i_quantum_coil: 'Quantic coil',
   i_energy_cell_a: 'Quantum energy cell',
@@ -42,7 +44,7 @@ class Upgrade {
 }
 
 
-function getCompleteUpgradesList() {
+function getStructuralUpgrades() {
   return [
     new Upgrade(upgradesId.st_terminal,
       upgradeTypes.structure,
@@ -50,31 +52,72 @@ function getCompleteUpgradesList() {
       new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]),
       null,
       []),
-    new Upgrade(upgradesId.sc_quantum_magnetism,
-      upgradeTypes.structure,
-      'Monitor actions',
-      null,
-      null,
-      [upgradesId.st_terminal]),
     new Upgrade(upgradesId.st_quantum_generator,
-      upgradeTypes.structure,
-      'Energy generator',
-      null,
+      upgradeTypes.science,
+      'Expulse quanta to gain momentum',
+      new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]),
       null,
       [upgradesId.sc_quantum_magnetism]),
+    new Upgrade(upgradesId.st_quantum_throttle,
+      upgradeTypes.structure,
+      'Add quantum engine',
+      new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]),
+      null,
+      [upgradesId.sc_quantic_expulsion]),
+  ];
+}
+
+function getScienceUpgrades() {
+  return [
+    new Upgrade(upgradesId.sc_quantum_magnetism,
+      upgradeTypes.structure,
+      'Energy generator',
+      new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]),
+      null,
+      [upgradesId.st_terminal]),
+    new Upgrade(upgradesId.sc_kinetic_power,
+      upgradeTypes.structure,
+      'Push to move!',
+      new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]),
+      null,
+      [upgradesId.sc_quantum_magnetism]),
+    new Upgrade(upgradesId.sc_quantic_expulsion,
+      upgradeTypes.structure,
+      '',
+      new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]),
+      null,
+      [upgradesId.sc_kinetic_power]),
+  ];
+}
+
+function getIncrementalUpgrades() {
+  return [
     new Upgrade(upgradesId.i_quantum_coil,
       upgradeTypes.incremental,
       'Add energy',
-      null,
+      new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]),
       1.2,
       [upgradesId.st_quantum_generator]),
+
     new Upgrade(upgradesId.i_energy_cell_a,
       upgradeTypes.incremental,
       'Add throttle',
       new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]),
       1.2,
-      []),
+      [upgradesId.st_quantum_throttle]),
   ];
+}
+
+function getOneShotUpgrades() {
+  return [];
+}
+
+
+function getCompleteUpgradesList() {
+  return getStructuralUpgrades()
+    .concat(getScienceUpgrades())
+    .concat(getIncrementalUpgrades())
+    .concat(getOneShotUpgrades());
 }
 
 export { getCompleteUpgradesList, upgradesId };

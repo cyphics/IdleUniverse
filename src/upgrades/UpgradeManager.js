@@ -15,6 +15,7 @@ class UpgradeManager {
     this.upgrades.forEach((upgrade) => {
       if (upgrade.id === requiredId) result = upgrade;
     });
+    if (result === null) throw new Error(`Upgrade ${requiredId.name} not found`);
     return result;
   }
 
@@ -24,10 +25,15 @@ class UpgradeManager {
 
   getAvailableUpgrades() {
     const availableUpgrades = [];
+    const l = this.upgrades;
     this.upgrades.forEach((up) => {
-      if (up.canBeBought() && this.areDependenciesMet(up)) availableUpgrades.push(up.id);
+      if (this.isUpgradeAvailable(up)) availableUpgrades.push(up.id);
     });
     return availableUpgrades;
+  }
+
+  isUpgradeAvailable(upgrade) {
+    return upgrade.canBeBought() && this.areDependenciesMet(upgrade);
   }
 
   areDependenciesMet(upgrade) {
@@ -42,6 +48,7 @@ class UpgradeManager {
   getDependencies(upgradeQueried) {
     const upgradesList = [];
     upgradeQueried.dependencies.forEach((id) => {
+      let up = this.getUpgradeById(id);
       upgradesList.push(this.getUpgradeById(id));
     });
     return upgradesList;

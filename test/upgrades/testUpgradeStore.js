@@ -4,11 +4,11 @@ import { UpgradeStore } from '../../src/upgrades/UpgradeStore';
 import { upgradesId } from '../../src/upgrades/Upgrade';
 import { UpgradeManager } from '../../src/upgrades/UpgradeManager';
 import { ResourcesStock } from '../../src/resources/ResourcesStock';
-import {resourceId} from "../../src/resources/Resource";
+import { resourceId } from '../../src/resources/Resource';
 
 
 describe('test getAvailableUpgrades', () => {
-  it('nothing baught', () => {
+  it('nothing bought', () => {
     const store = new UpgradeStore(new UpgradeManager(), new ResourcesStock());
     const upgrades = store.availableUpgrades;
     const expected = [upgradesId.st_terminal];
@@ -27,7 +27,10 @@ describe('test getAvailableUpgrades', () => {
     manager.buyUpgrade(upgradesId.sc_quantum_magnetism);
     const store = new UpgradeStore(manager);
     const upgrades = store.availableUpgrades;
-    const expected = [upgradesId.st_terminal, upgradesId.st_quantum_generator];
+    const expected = [
+      upgradesId.st_terminal,
+      upgradesId.st_quantum_generator,
+      upgradesId.sc_kinetic_power];
     expect(upgrades).to.eql(expected);
   });
   it('generator bought', () => {
