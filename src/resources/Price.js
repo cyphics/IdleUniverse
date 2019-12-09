@@ -1,9 +1,6 @@
 class Price {
   constructor(resourcesList = []) {
-    this.resourcesList = {};
-    resourcesList.forEach((resAmount) => {
-      this.resourcesList[resAmount.id] = resAmount.amount;
-    });
+    this.resourcesList = resourcesList;
   }
 
   getResources() {
@@ -11,17 +8,22 @@ class Price {
   }
 
   addResource(resourceAmount) {
-    if (resourceAmount.id in this.resourcesList) {
-      this.resourcesList[resourceAmount.id] += resourceAmount.amount;
-    } else {
-      this.resourcesList[resourceAmount.id] = resourceAmount.amount;
-    }
+    let alreadyPresent = false;
+    this.resourcesList.forEach((res) => {
+      if (res.id === resourceAmount.id) {
+        res.amount += resourceAmount.amount;
+        alreadyPresent = true;
+      }
+    });
+    if (!alreadyPresent) this.resourcesList.push(resourceAmount);
   }
 
   getAmount(resourceId) {
-    const amount = this.resourcesList[resourceId];
-    if (amount) return amount;
-    return 0;
+    let amount = 0;
+    this.resourcesList.forEach((res) => {
+      if (res.id === resourceId) amount += res.amount;
+    });
+    return amount;
   }
 }
 

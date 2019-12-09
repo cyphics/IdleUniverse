@@ -10,8 +10,16 @@ describe('Price getResources', () => {
     const resourceAmount = price.getAmount(resourceId.dark_matter);
     expect(resourceAmount).to.be.eql(0);
   });
-  it('get initial resource', () => {
+  it('set 1 resource', () => {
     const price = new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]);
+    const resourceAmount = price.getAmount(resourceId.kinetic_energy);
+    expect(resourceAmount).to.be.eql(10);
+  });
+  it('set 2 resources', () => {
+    const price = new Price([
+      new ResourceAmount(resourceId.kinetic_energy, 10),
+      new ResourceAmount(resourceId.dark_matter, 10),
+    ]);
     const resourceAmount = price.getAmount(resourceId.kinetic_energy);
     expect(resourceAmount).to.be.eql(10);
   });
