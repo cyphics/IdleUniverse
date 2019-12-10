@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-
 import PhysicsComputer from '../../src/physics/physics';
 import { Distance } from '../../src/physics/Distance';
 import { Speed } from '../../src/physics/speed';
@@ -7,6 +6,11 @@ import { Acceleration } from '../../src/physics/Acceleration';
 import { Time } from '../../src/physics/time';
 import { distanceStandard } from '../../src/physics/distanceStandard';
 import { timeStandard } from '../../src/physics/timeStandard';
+
+require('./testDistance');
+require('./testSpeed');
+require('./testTime');
+require('./testAcceleration');
 
 describe('getTraveledDistance()', () => {
   it('speed 0, duration 0, acceleration 0', () => {

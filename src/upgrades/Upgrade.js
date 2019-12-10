@@ -17,6 +17,9 @@ const upgradesId = {
   sc_kinetic_power: 'Kinetic Power',
   i_quantum_coil: 'Quantic coil',
   i_energy_cell_a: 'Quantum energy cell',
+  u_quantun_conductur: 'Quantum conductor',
+  u_quantum_synergy: 'Quantum synergy',
+  u_dynamo: 'Dynamo',
 };
 
 class Upgrade {
@@ -109,7 +112,28 @@ function getIncrementalUpgrades() {
 }
 
 function getOneShotUpgrades() {
-  return [];
+  return [
+    new Upgrade(upgradesId.u_quantun_conductur,
+      upgradeTypes.upgrade,
+      'Improve coil effect',
+      new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]),
+      null,
+      [upgradesId.sc_quantic_expulsion]),
+    new Upgrade(upgradesId.u_quantum_synergy,
+      upgradeTypes.upgrade,
+      'Cells also generate energy',
+      new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]),
+      null,
+      [upgradesId.u_quantun_conductur]),
+    new Upgrade(
+      upgradesId.u_dynamo,
+      upgradeTypes.upgrade,
+      'Speed generates energy',
+      new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]),
+      null,
+      [upgradesId.u_dynamo],
+    ),
+  ];
 }
 
 

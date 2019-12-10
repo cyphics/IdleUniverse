@@ -1,8 +1,8 @@
-import { getResourcesList } from './Resource';
+import { buildResourcesList } from './Resource';
 
 class ResourcesStock {
   constructor() {
-    this.resources_list = getResourcesList();
+    this.resources_list = buildResourcesList();
   }
 
   addResource(resourceId, amount) {

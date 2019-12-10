@@ -4,6 +4,9 @@ class Price {
   }
 
   getResources() {
+    /**
+     * Return list of ResourceAmount contained
+     */
     return this.resourcesList;
   }
 

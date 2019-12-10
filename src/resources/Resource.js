@@ -25,11 +25,16 @@ const resourceId = {
   dark_matter: 'Dark matter',
 };
 
-function getResourcesList() {
+const resourcesIdList = [
+  resourceId.kinetic_energy,
+  resourceId.dark_matter,
+];
+
+function buildResourcesList() {
   return [
     new Resource(resourceId.kinetic_energy),
     new Resource(resourceId.dark_matter),
   ];
 }
 
-export { getResourcesList, resourceId };
+export { buildResourcesList, resourceId, resourcesIdList };

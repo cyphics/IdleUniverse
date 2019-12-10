@@ -1,16 +1,25 @@
 import { Time } from '../physics/time';
-import { ResourcesComputer } from './ResourcesComputer';
+import { ResourcesGenerator } from './ResourcesGenerator';
+import { resourcesIdList } from './Resource';
+import { Price, ResourceAmount } from './Price';
 
 class ResourcesCollector {
   constructor(upgradesManager, resourcesStock) {
     this.updatesManager = upgradesManager;
     this.stock = resourcesStock;
-    this.computer = new ResourcesComputer(upgradesManager);
+    this.computer = new ResourcesGenerator(upgradesManager);
   }
 
   getGeneratedResources(time) {
-    let generatedResources = new Price();
-
+    const generatedResources = new Price();
+    resourcesIdList.forEach((resId) => {
+      const resourceRate = this.computer.getProductionRate(resId);
+      const resAmount = resourceRate * time.absolute_value;
+      if (resAmount > 0) {
+        generatedResources.addResource(new ResourceAmount(resId, resAmount));
+      }
+    });
+    return generatedResources;
   }
 
   getTimeUntilInStock(price) {

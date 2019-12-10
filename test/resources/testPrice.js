@@ -3,7 +3,23 @@ import { describe } from 'mocha';
 import { resourceId } from '../../src/resources/Resource';
 import { Price, ResourceAmount } from '../../src/resources/Price';
 
-
+describe('Price comparison', () => {
+  it('test identity empty', () => {
+    const p1 = new Price();
+    const p2 = new Price();
+    expect(p1).to.be.eql(p2);
+  });
+  it('test identity not empty', () => {
+    const p1 = new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]);
+    const p2 = new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]);
+    expect(p1).to.be.eql(p2);
+  });
+  it('test difference ', () => {
+    const p1 = new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]);
+    const p2 = new Price([new ResourceAmount(resourceId.kinetic_energy, 5)]);
+    expect(p1).to.be.eql(p2);
+  });
+});
 describe('Price getResources', () => {
   it('get empty resource', () => {
     const price = new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]);

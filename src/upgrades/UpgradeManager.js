@@ -23,6 +23,10 @@ class UpgradeManager {
     return this.getUpgradeById(upgradeId).amount_bought;
   }
 
+  isBought(upgradeId) {
+    return this.getAmountBought(upgradeId) > 0;
+  }
+
   getAvailableUpgrades() {
     const availableUpgrades = [];
     const l = this.upgrades;

@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 
 import { describe } from 'mocha';
-import { Acceleration } from '../../src/physics/Acceleration';
 import { numToString } from '../../src/physics/physicsUtils';
 
 describe('numToSting', () => {
