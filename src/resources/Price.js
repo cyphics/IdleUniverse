@@ -1,3 +1,8 @@
+function ResourceAmount(resourceId, amount) {
+  this.id = resourceId;
+  this.amount = amount;
+}
+
 class Price {
   constructor(resourcesList = []) {
     this.resourcesList = resourcesList;
@@ -28,11 +33,16 @@ class Price {
     });
     return amount;
   }
+
+  multiply(factor) {
+    const newPrice = new Price();
+    this.resourcesList.forEach((origRes) => {
+      const amount = new ResourceAmount(origRes.id, origRes.amount * factor);
+      newPrice.addResource(amount);
+    });
+    return newPrice;
+  }
 }
 
-function ResourceAmount(resourceId, amount) {
-  this.id = resourceId;
-  this.amount = amount;
-}
 
 export { Price, ResourceAmount };

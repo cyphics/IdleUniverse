@@ -3,23 +3,6 @@ import { describe } from 'mocha';
 import { resourceId } from '../../src/resources/Resource';
 import { Price, ResourceAmount } from '../../src/resources/Price';
 
-describe('Price comparison', () => {
-  it('test identity empty', () => {
-    const p1 = new Price();
-    const p2 = new Price();
-    expect(p1).to.be.eql(p2);
-  });
-  it('test identity not empty', () => {
-    const p1 = new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]);
-    const p2 = new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]);
-    expect(p1).to.be.eql(p2);
-  });
-  it('test difference ', () => {
-    const p1 = new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]);
-    const p2 = new Price([new ResourceAmount(resourceId.kinetic_energy, 5)]);
-    expect(p1).to.be.eql(p2);
-  });
-});
 describe('Price getResources', () => {
   it('get empty resource', () => {
     const price = new Price([new ResourceAmount(resourceId.kinetic_energy, 10)]);
@@ -59,5 +42,39 @@ describe('Price addResource', () => {
     price.addResource(new ResourceAmount(resourceId.kinetic_energy, 1));
     const finalAmount = price.getAmount(resourceId.kinetic_energy);
     expect(finalAmount).to.be.eql(11);
+  });
+});
+
+describe('Price multiply', () => {
+  it('factor 1 (no change)', () => {
+    const price = new Price();
+    price.addResource(new ResourceAmount(resourceId.kinetic_energy, 10));
+    price.multiply(1);
+    const kinAmount = price.getAmount(resourceId.kinetic_energy);
+    expect(kinAmount).to.be.eql(10);
+  });
+  it('factor 2 ', () => {
+    const price = new Price();
+    price.addResource(new ResourceAmount(resourceId.kinetic_energy, 10));
+    const newPrice = price.multiply(2);
+    const kinAmount = newPrice.getAmount(resourceId.kinetic_energy);
+    expect(kinAmount).to.be.eql(20);
+  });
+  it('multiple resources ', () => {
+    const price = new Price();
+    price.addResource(new ResourceAmount(resourceId.kinetic_energy, 10));
+    price.addResource(new ResourceAmount(resourceId.dark_matter, 5));
+    const newPrice = price.multiply(2);
+    const kinAmount = newPrice.getAmount(resourceId.kinetic_energy);
+    const darkMatter = newPrice.getAmount(resourceId.dark_matter);
+    expect(kinAmount).to.be.eql(20);
+    expect(darkMatter).to.be.eql(10);
+  });
+  it('original price not modified ', () => {
+    const price = new Price();
+    price.addResource(new ResourceAmount(resourceId.kinetic_energy, 10));
+    price.multiply(2);
+    const kinAmount = price.getAmount(resourceId.kinetic_energy);
+    expect(kinAmount).to.be.eql(10);
   });
 });

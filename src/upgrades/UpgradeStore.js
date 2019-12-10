@@ -20,6 +20,10 @@ class UpgradeStore {
   updateAvailableUpgrades() {
     this.availableUpgrades = this.manager.getAvailableUpgrades();
   }
+
+  getPrice(id) {
+    return this.manager.getPrice(id);
+  }
 }
 
 export { UpgradeStore };

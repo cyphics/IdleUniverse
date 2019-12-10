@@ -33,8 +33,10 @@ class Upgrade {
     this.amount_bought = 0;
   }
 
-  getPrice() {
-    return this.initialPrice;
+  getPrice(amountLevels = 1) {
+    return this.initialPrice.multiply(
+      this.increaseFactor ** (this.amount_bought - 1 + amountLevels),
+    );
   }
 
   increaseLevel(amount) {
