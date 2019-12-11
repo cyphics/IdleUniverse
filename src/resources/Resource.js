@@ -21,7 +21,7 @@ class Resource {
 }
 
 const resourceId = {
-  joule: 'Kinetic joule',
+  joule: 'Joule',
   steel: 'Steel',
   iron: 'Iron',
   copper: 'Copper',
@@ -32,6 +32,11 @@ const resourceId = {
 
 const resourcesIdList = [
   resourceId.joule,
+  resourceId.steel,
+  resourceId.iron,
+  resourceId.copper,
+  resourceId.lines_of_code,
+  resourceId.knowledge,
   resourceId.dark_matter,
 ];
 

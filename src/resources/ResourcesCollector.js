@@ -1,7 +1,6 @@
 import { Time } from '../physics/time';
 import { RateComputer } from './RateComputer';
 import { resourcesIdList } from './Resource';
-import { Price, ResourceAmount } from './Price';
 
 class ResourcesCollector {
   constructor(upgradesManager, resourcesStock) {

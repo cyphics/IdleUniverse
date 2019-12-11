@@ -42,6 +42,14 @@ class Price {
     });
     return newPrice;
   }
+
+  toString() {
+    let result = '';
+    this.resourcesList.forEach((res) => {
+      result += `${res.id} : ${res.amount}, `;
+    });
+    return result;
+  }
 }
 
 

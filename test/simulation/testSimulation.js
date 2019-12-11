@@ -14,13 +14,16 @@ describe('test getNextUpgrade', () => {
     expect(nextUpgrade).to.eql(upgradesId.i_lvl_1_coil);
   });
   it('cheapest', () => {
+    const stock = new ResourcesStock();
+    stock.addResource(resourceId.joule, 10);
     const simulation = new Simulation(
       new UpgradeManager(),
-      new ResourcesStock(),
+      stock,
       strategyId.cheapest,
+      100,
     );
     const nextUpgrade = simulation.getNextUpgradeToBuy();
-    expect(nextUpgrade).to.eql(upgradesId.i_lvl_1_coil);
+    expect(nextUpgrade).to.eql(upgradesId.st_terminal);
   });
   it('run boken empty game', () => {
     const simulation = new Simulation(

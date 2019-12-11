@@ -18,8 +18,9 @@ const upgradesId = {
   sc_quantum_magnetism: 'Quantum Magnetism',
   sc_quantic_expulsion: 'Quantic Expulsion',
   sc_kinetic_power: 'Kinetic Power',
-  i_lvl_1_coil: 'Quantic coil',
-  i_energy_cell_a: 'Quantum joule cell',
+  i_lvl_1_coil: 'Quantic coil', // Generate energy
+  i_kinetic_push: 'Kinetic push', // Give ponctual acceleration
+  i_energy_cell_a: 'Quantum joule cell', // Give constant acceleration
   u_quantun_conductur: 'Quantum conductor',
   u_quantum_synergy: 'Quantum synergy',
   u_dynamo: 'Dynamo',
@@ -86,12 +87,6 @@ function getStructuralUpgrades() {
 
 function getScienceUpgrades() {
   return [
-    // new Upgrade(upgradesId.sc_quantum_magnetism,
-    //   upgradeTypes.structure,
-    //   'Energy generator',
-    //   new Price([new ResourceAmount(resourceId.joule, 10)]),
-    //   null,
-    //   [upgradesId.st_terminal]),
     new Upgrade(upgradesId.sc_kinetic_power,
       upgradeTypes.structure,
       'Push to move!',
@@ -115,7 +110,7 @@ function getSoftwareUpgrades() {
       new Price([
         new ResourceAmount(resourceId.lines_of_code, 20)]),
       null,
-      [upgradesId.st_lvl_1_generator]),
+      [upgradesId.i_lvl_1_coil]),
   ];
 }
 function getIncrementalUpgrades() {
@@ -123,10 +118,15 @@ function getIncrementalUpgrades() {
     new Upgrade(upgradesId.i_lvl_1_coil,
       upgradeTypes.incremental,
       'Add joule',
-      new Price([new ResourceAmount(resourceId.joule, 10)]),
+      new Price([new ResourceAmount(resourceId.copper, 10)]),
       1.2,
       [upgradesId.st_lvl_1_generator]),
-
+    new Upgrade(upgradesId.i_kinetic_push,
+      upgradeTypes.incremental,
+      'Add ponctual acceleration',
+      new Price([new ResourceAmount(resourceId.joule, 100)]),
+      1,
+      [upgradesId.st_kinetic_pusher]),
     new Upgrade(upgradesId.i_energy_cell_a,
       upgradeTypes.incremental,
       'Add throttle',

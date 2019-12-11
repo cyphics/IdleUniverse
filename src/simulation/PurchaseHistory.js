@@ -3,8 +3,8 @@ class PurchaseHistory {
     this.purchasesList = [];
   }
 
-  addPurchase(upgradeId, timestamp) {
-    const entry = { timestamp, upgradeId };
+  addPurchase(upgradeId, timestamp, price) {
+    const entry = { timestamp, upgradeId, price };
     this.purchasesList.push(entry);
   }
 

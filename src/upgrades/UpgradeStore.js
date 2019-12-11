@@ -1,7 +1,10 @@
+import {ResourcesCollector} from "../resources/ResourcesCollector";
+
 class UpgradeStore {
   constructor(upgradesManager, resourcesStock) {
     this.manager = upgradesManager;
     this.stock = resourcesStock;
+    this.collector = new ResourcesCollector(this.manager, this.stock);
     this.availableUpgrades = [];
     this.updateAvailableUpgrades();
   }
@@ -23,6 +26,11 @@ class UpgradeStore {
 
   getPrice(id) {
     return this.manager.getPrice(id);
+  }
+
+  getTimeUntilAvailable(id) {
+    const price = this.getPrice(id);
+    return this.collector.getTimeUntilInStock(price);
   }
 }
 
