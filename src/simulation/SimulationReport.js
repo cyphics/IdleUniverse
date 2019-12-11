@@ -35,12 +35,13 @@ class SimulationReport {
   }
 
   addPurchaseLine(timeStamp, id, price) {
-    const timeLength = timeStamp.length;
+    const timeLength = timeStamp.toString().length;
     const idLength = id.length;
-    let output = timeStamp;
+    let output = "";
     for (let i = 0; i < this.timeStampMaxLength - timeLength; i++) {
       output += ' ';
     }
+    output += timeStamp;
     output += ' | ';
     output += id;
     for (let i = 0; i < this.purchaseMaxLength - idLength; i++) {

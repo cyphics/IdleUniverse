@@ -1,11 +1,10 @@
 import { Time } from '../physics/time';
-import { RateComputer } from './RateComputer';
 import { resourcesIdList } from './Resource';
 
 class ResourcesCollector {
   constructor(upgradesManager, resourcesStock) {
     this.stock = resourcesStock;
-    this.computer = new RateComputer(upgradesManager);
+    this.computer = upgradesManager.computer;
   }
 
   generateResources(time) {

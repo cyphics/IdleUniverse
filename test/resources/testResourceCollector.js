@@ -10,6 +10,8 @@ import { Time } from '../../src/physics/time';
 
 require('./testResourcesStock');
 require('./testPrice');
+require('../upgrades/testUpgradeManager');
+
 
 describe('ResourceCollector getTimeUntilInStock', () => {
   it('infinite time (no production)', () => {

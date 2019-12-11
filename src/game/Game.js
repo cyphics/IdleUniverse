@@ -1,8 +1,18 @@
-import { ShipEngine } from './ShipEngine';
+import { RateComputer } from '../resources/RateComputer';
+import { UpgradeStore } from '../upgrades/UpgradeStore';
+import { ResourcesCollector } from '../resources/ResourcesCollector';
+import { PurchaseHistory } from '../simulation/PurchaseHistory';
+import { Timer } from './Timer';
 
 class Game {
-  constructor() {
-    this.computer = new ShipEngine();
+  constructor(upgradesManager, resourcesStock) {
+    this.upgradesManager = upgradesManager;
+    this.stock = resourcesStock;
+    this.history = new PurchaseHistory();
+    this.timer = new Timer();
+    this.computer = new RateComputer(this.upgradesManager);
+    this.collector = new ResourcesCollector(this.computer, this.stock);
+    this.store = new UpgradeStore(this.upgradesManager, this.stock, this.history, this.timer);
   }
 
   jump(elapsedTime) {

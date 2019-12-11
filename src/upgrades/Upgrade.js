@@ -15,6 +15,7 @@ const upgradesId = {
   st_kinetic_pusher: 'Kinetic pusher',
   st_quantum_throttle: 'Quantum Throttle',
   prog_gps: 'GPS firmware',
+  prog_kinetic_transformation: 'Kinetic pusher firmware',
   sc_quantum_magnetism: 'Quantum Magnetism',
   sc_quantic_expulsion: 'Quantic Expulsion',
   sc_kinetic_power: 'Kinetic Power',
@@ -111,6 +112,13 @@ function getSoftwareUpgrades() {
         new ResourceAmount(resourceId.lines_of_code, 20)]),
       null,
       [upgradesId.i_lvl_1_coil]),
+    new Upgrade(upgradesId.prog_kinetic_transformation,
+      upgradeTypes.software,
+      'Make pusher work',
+      new Price([
+        new ResourceAmount(resourceId.lines_of_code, 20)]),
+      null,
+      [upgradesId.sc_kinetic_power]),
   ];
 }
 function getIncrementalUpgrades() {

@@ -7,7 +7,7 @@ import { ResourcesStock } from '../../src/resources/ResourcesStock';
 import { resourceId } from '../../src/resources/Resource';
 
 
-describe('test getNextUpgrade', () => {
+describe('Simulation getNextUpgrade', () => {
   it('broken', () => {
     const simulation = new Simulation(new UpgradeManager(), new ResourcesStock());
     const nextUpgrade = simulation.getNextUpgradeToBuy();

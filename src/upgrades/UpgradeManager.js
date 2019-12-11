@@ -1,13 +1,16 @@
 import { getCompleteUpgradesList } from './Upgrade';
+import { RateComputer } from '../resources/RateComputer';
 
 class UpgradeManager {
   constructor() {
     this.upgrades = getCompleteUpgradesList();
+    this.computer = new RateComputer(this);
   }
 
   buyUpgrade(id, amount = 1) {
     const upgrade = this.getUpgradeById(id);
     if (upgrade) upgrade.increaseLevel(amount);
+    this.computer.updateUpgradeValues();
   }
 
   getUpgradeById(requiredId) {

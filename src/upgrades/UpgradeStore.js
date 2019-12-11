@@ -1,11 +1,12 @@
-import {ResourcesCollector} from "../resources/ResourcesCollector";
+import { ResourcesCollector } from '../resources/ResourcesCollector';
 
 class UpgradeStore {
-  constructor(upgradesManager, resourcesStock) {
+  constructor(upgradesManager, resourcesStock, history) {
     this.manager = upgradesManager;
     this.stock = resourcesStock;
     this.collector = new ResourcesCollector(this.manager, this.stock);
     this.availableUpgrades = [];
+    this.purchaseHistory = history;
     this.updateAvailableUpgrades();
   }
 
