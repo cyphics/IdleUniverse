@@ -4,7 +4,7 @@ class Timer {
   }
 
   addTime(additionalTime) {
-    this.elapsedTime += additionalTime.absolute_value;
+    this.elapsedTime += additionalTime.absoluteValue;
   }
 }
 

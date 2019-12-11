@@ -69,7 +69,7 @@ describe('Distances creation', () => {
     const actual = new Distance(1, distanceStandard.yoctometer);
     expect(actual.value(distanceStandard.yoctometer)).to.eql(1);
   });
-  it('absolute absolute_value', () => {
+  it('absolute absoluteValue', () => {
     const actual = new Distance(1, distanceStandard.femtometer);
     expect(actual.value(distanceStandard.yoctometer)).to.eql(1e+9);
   });

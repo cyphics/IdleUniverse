@@ -1,9 +1,11 @@
-import { Resource, resourcesIdList } from './Resource';
+import { Resource, resourceId, resourcesIdList } from './Resource';
 
 class ResourcesStock {
   constructor() {
     this.resources_list = [];
     resourcesIdList.forEach((resId) => this.resources_list.push(new Resource(resId)));
+    this.resources_list.push(new Resource(resourceId.ship_speed));
+    this.resources_list.push(new Resource(resourceId.traveled_distance));
   }
 
   addResource(resourceId, amount) {

@@ -13,8 +13,8 @@ class Simulation {
     this.game = game;
     this.stratId = stratId;
     this.maxTime = time;
-    this.timer = new Timer();
-    this.history = new PurchaseHistory();
+    this.timer = game.timer;
+    this.history = game.history;
     this.isRunning = true;
   }
 
@@ -32,18 +32,15 @@ class Simulation {
     }
     const priceNextUpgrade = this.game.upgradesManager.getPrice(nextUpgradeToBuy);
     const timeToWait = this.game.collector.getTimeUntilInStock(priceNextUpgrade);
-    if (timeToWait.absolute_value === Infinity
-        || timeToWait.absolute_value + this.timer.elapsedTime > this.maxTime) {
+    if (timeToWait.absoluteValue === Infinity
+        || timeToWait.absoluteValue + this.timer.elapsedTime > this.maxTime) {
       this.isRunning = false;
       return;
     }
-    this.game.collector.generateResources(timeToWait);
-    this.timer.addTime(timeToWait);
+    this.game.jumpInTime(timeToWait);
     if (this.timer.elapsedTime > this.maxTime) this.isRunning = false;
     const purchaseResult = this.game.store.buyUpgrade(nextUpgradeToBuy);
-    if (purchaseResult) {
-      this.history.addPurchase(nextUpgradeToBuy, this.timer.elapsedTime, priceNextUpgrade);
-    } else {
+    if (!purchaseResult) {
       throw new Error(`Purchased of "${nextUpgradeToBuy}" failed!`);
     }
   }
@@ -55,7 +52,7 @@ class Simulation {
       case strategyId.cheapest:
         this.game.store.availableUpgrades.forEach((upId) => {
           const price = this.game.upgradesManager.getPrice(upId);
-          const timeUntilAvailable = this.game.collector.getTimeUntilInStock(price).absolute_value;
+          const timeUntilAvailable = this.game.collector.getTimeUntilInStock(price).absoluteValue;
           if (timeUntilAvailable < shortestTime) {
             shortestTime = timeUntilAvailable;
             nextUpgrade = upId;

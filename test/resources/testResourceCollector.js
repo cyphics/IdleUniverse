@@ -11,6 +11,7 @@ import { Time } from '../../src/physics/time';
 require('./testResourcesStock');
 require('./testPrice');
 require('../upgrades/testUpgradeManager');
+require('../physics/testPhysicsComputer');
 
 
 describe('ResourceCollector getTimeUntilInStock', () => {
@@ -21,7 +22,7 @@ describe('ResourceCollector getTimeUntilInStock', () => {
     const desiredResource = new ResourceAmount(resourceId.joule, 1);
     const price = new Price([desiredResource]);
     const time = collector.getTimeUntilInStock(price);
-    expect(time.absolute_value).to.be.eql(Infinity);
+    expect(time.absoluteValue).to.be.eql(Infinity);
   });
   it('1 up, 1 res', () => {
     const manager = new UpgradeManager();
@@ -31,7 +32,7 @@ describe('ResourceCollector getTimeUntilInStock', () => {
     const desiredResource = new ResourceAmount(resourceId.joule, 1);
     const price = new Price([desiredResource]);
     const time = collector.getTimeUntilInStock(price);
-    expect(time.absolute_value).to.be.eql(1);
+    expect(time.absoluteValue).to.be.eql(1);
   });
   it('2 up, 2 res', () => {
     const manager = new UpgradeManager();
@@ -41,7 +42,7 @@ describe('ResourceCollector getTimeUntilInStock', () => {
     const desiredResource = new ResourceAmount(resourceId.joule, 2);
     const price = new Price([desiredResource]);
     const time = collector.getTimeUntilInStock(price);
-    expect(time.absolute_value).to.be.eql(1);
+    expect(time.absoluteValue).to.be.eql(1);
   });
   it('1 up, 2 res', () => {
     const manager = new UpgradeManager();
@@ -51,7 +52,7 @@ describe('ResourceCollector getTimeUntilInStock', () => {
     const desiredResource = new ResourceAmount(resourceId.joule, 2);
     const price = new Price([desiredResource]);
     const time = collector.getTimeUntilInStock(price);
-    expect(time.absolute_value).to.be.eql(2);
+    expect(time.absoluteValue).to.be.eql(2);
   });
   it('2 up, 1 res', () => {
     const manager = new UpgradeManager();
@@ -61,7 +62,7 @@ describe('ResourceCollector getTimeUntilInStock', () => {
     const desiredResource = new ResourceAmount(resourceId.joule, 1);
     const price = new Price([desiredResource]);
     const time = collector.getTimeUntilInStock(price);
-    expect(time.absolute_value).to.be.eql(0.5);
+    expect(time.absoluteValue).to.be.eql(0.5);
   });
 });
 

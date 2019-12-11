@@ -45,7 +45,7 @@ describe('Time creation', () => {
     const actual = new Time(1, timeStandard.millisecond);
     expect(actual.value(timeStandard.millisecond)).to.eql(1);
   });
-  it('absolute absolute_value minute', () => {
+  it('absolute absoluteValue minute', () => {
     const actual = new Time(1, timeStandard.hour);
     expect(actual.value(timeStandard.millisecond)).to.eql(3600000);
   });

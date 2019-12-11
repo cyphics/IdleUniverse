@@ -28,6 +28,8 @@ const resourceId = {
   dark_matter: 'Dark matter',
   lines_of_code: 'Lines of code',
   knowledge: 'Scientific knowledge',
+  traveled_distance: 'distance',
+  ship_speed: 'speed',
 };
 
 const resourcesIdList = [

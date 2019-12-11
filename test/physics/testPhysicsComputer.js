@@ -17,7 +17,8 @@ describe('getTraveledDistance()', () => {
     const speed = new Speed();
     const duration = new Time();
     const acceleration = new Acceleration();
-    expect(PhysicsComputer.getTraveledDistance(speed, duration, acceleration).value()).to.eql(0);
+    const traveledDistance = PhysicsComputer.getTraveledDistance(speed, duration, acceleration).value();
+    expect(traveledDistance).to.eql(0);
   });
   it('speed 1, duration 1, acceleration 0', () => {
     const speed = new Speed(1);

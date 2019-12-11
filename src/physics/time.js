@@ -3,15 +3,15 @@ import { timeStandard } from './timeStandard';
 
 class Time {
   constructor(value = 0, unit = timeStandard.millisecond) {
-    this.absolute_value = value * unit.value;
+    this.absoluteValue = value * unit.value;
     this.value = function (requiredUnit = null) {
-      if (requiredUnit === null) return this.absolute_value;
-      return this.absolute_value / requiredUnit.value;
+      if (requiredUnit === null) return this.absoluteValue;
+      return this.absoluteValue / requiredUnit.value;
     };
   }
 
   toString() {
-    let total = this.absolute_value;
+    let total = this.absoluteValue;
 
     let output = '';
     let millisec = 0;
@@ -57,7 +57,7 @@ class Time {
   }
 
   add(additionalTime) {
-    this.absolute_value += additionalTime.absolute_value;
+    this.absoluteValue += additionalTime.absoluteValue;
   }
 }
 

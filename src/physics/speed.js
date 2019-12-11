@@ -7,10 +7,10 @@ class Speed {
     currentDistanceUnit = distanceStandard.yoctometer,
     currentTimeUnit = timeStandard.millisecond,
   ) {
-    this.absolute_value = (value * currentDistanceUnit.value) / currentTimeUnit.value;
+    this.absoluteValue = (value * currentDistanceUnit.value) / currentTimeUnit.value;
     this.value = function (askedDistanceUnit = null) {
-      if (askedDistanceUnit === null) return this.absolute_value;
-      return this.absolute_value;
+      if (askedDistanceUnit === null) return this.absoluteValue;
+      return this.absoluteValue;
     };
   }
 

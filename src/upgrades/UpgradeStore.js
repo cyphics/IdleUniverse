@@ -1,9 +1,10 @@
+import {upgradesId} from "./Upgrade";
+import {resourceId} from "../resources/Resource";
 
 class UpgradeStore {
   constructor(upgradesManager, resourcesStock, history, timer) {
     this.manager = upgradesManager;
     this.stock = resourcesStock;
-    // this.collector = new ResourcesCollector(this.manager, this.stock);
     this.availableUpgrades = [];
     this.purchaseHistory = history;
     this.timer = timer;
@@ -14,6 +15,7 @@ class UpgradeStore {
     const priceToPay = this.manager.getPrice(id);
     if (this.stock.canPriceBePayed(priceToPay)) {
       this.stock.takePrice(priceToPay);
+      this.takeAction(id);
       this.manager.buyUpgrade(id);
       this.updateAvailableUpgrades();
       if (this.purchaseHistory) {
@@ -22,6 +24,16 @@ class UpgradeStore {
       return true;
     }
     return false;
+  }
+
+  takeAction(upId) {
+    switch (upId) {
+      case upgradesId.i_kinetic_push:
+        this.stock.addResource(resourceId.ship_speed, 1);
+        break;
+      default:
+        break;
+    }
   }
 
   updateAvailableUpgrades() {

@@ -1,6 +1,7 @@
 import { upgradesId } from '../upgrades/Upgrade';
 import { gameValues } from '../game/gameValues';
 import { resourceId } from './Resource';
+import { Acceleration } from '../physics/Acceleration';
 
 class RateComputer {
   constructor(upgradesManager) {

@@ -50,9 +50,7 @@ export default class PhysicsComputer {
          *  Return the distance traveled at current speed, during given duration
          *   dist = init_speed * duration + 1/2 acceleration * duration^2
          */
-    const speed = initialSpeed.value();
-    const time = duration.value();
-    const acc = acceleration.value();
-    return new Distance(speed * time + acc * 0.5 * time * time);
+    const time = duration.absoluteValue;
+    return new Distance(initialSpeed * time + acceleration * 0.5 * time * time);
   }
 }
