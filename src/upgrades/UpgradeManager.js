@@ -15,7 +15,7 @@ class UpgradeManager {
     this.upgrades.forEach((upgrade) => {
       if (upgrade.id === requiredId) result = upgrade;
     });
-    if (result === null) throw new Error(`Upgrade ${requiredId.name} not found`);
+    if (result === null) throw new Error(`Upgrade ${requiredId} not found`);
     return result;
   }
 
@@ -52,7 +52,6 @@ class UpgradeManager {
   getDependencies(upgradeQueried) {
     const upgradesList = [];
     upgradeQueried.dependencies.forEach((id) => {
-      let up = this.getUpgradeById(id);
       upgradesList.push(this.getUpgradeById(id));
     });
     return upgradesList;

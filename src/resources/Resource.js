@@ -21,20 +21,18 @@ class Resource {
 }
 
 const resourceId = {
-  kinetic_energy: 'Kinetic energy',
+  joule: 'Kinetic joule',
+  steel: 'Steel',
+  iron: 'Iron',
+  copper: 'Copper',
   dark_matter: 'Dark matter',
+  lines_of_code: 'Lines of code',
+  knowledge: 'Scientific knowledge',
 };
 
 const resourcesIdList = [
-  resourceId.kinetic_energy,
+  resourceId.joule,
   resourceId.dark_matter,
 ];
 
-function buildResourcesList() {
-  return [
-    new Resource(resourceId.kinetic_energy),
-    new Resource(resourceId.dark_matter),
-  ];
-}
-
-export { buildResourcesList, resourceId, resourcesIdList };
+export { resourceId, resourcesIdList, Resource };

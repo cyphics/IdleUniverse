@@ -1,6 +1,6 @@
 import { ShipEngine } from './ShipEngine';
 
-class Ship {
+class Game {
   constructor() {
     this.computer = new ShipEngine();
   }
@@ -25,4 +25,4 @@ class Ship {
 }
 
 
-export { Ship };
+export { Game };

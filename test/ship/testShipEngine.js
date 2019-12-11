@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { describe } from 'mocha';
 import { UpgradeManager } from '../../src/upgrades/UpgradeManager';
-import { ShipEngine } from '../../src/ship/ShipEngine';
+import { ShipEngine } from '../../src/game/ShipEngine';
 import { upgradesId } from '../../src/upgrades/Upgrade';
 
 
