@@ -1,12 +1,12 @@
-import { ResourcesCollector } from '../resources/ResourcesCollector';
 
 class UpgradeStore {
-  constructor(upgradesManager, resourcesStock, history) {
+  constructor(upgradesManager, resourcesStock, history, timer) {
     this.manager = upgradesManager;
     this.stock = resourcesStock;
-    this.collector = new ResourcesCollector(this.manager, this.stock);
+    // this.collector = new ResourcesCollector(this.manager, this.stock);
     this.availableUpgrades = [];
     this.purchaseHistory = history;
+    this.timer = timer;
     this.updateAvailableUpgrades();
   }
 
@@ -16,6 +16,9 @@ class UpgradeStore {
       this.stock.takePrice(priceToPay);
       this.manager.buyUpgrade(id);
       this.updateAvailableUpgrades();
+      if (this.purchaseHistory) {
+        this.purchaseHistory.addPurchase(id, this.timer.elapsedTime, priceToPay);
+      }
       return true;
     }
     return false;
@@ -23,15 +26,6 @@ class UpgradeStore {
 
   updateAvailableUpgrades() {
     this.availableUpgrades = this.manager.getAvailableUpgrades();
-  }
-
-  getPrice(id) {
-    return this.manager.getPrice(id);
-  }
-
-  getTimeUntilAvailable(id) {
-    const price = this.getPrice(id);
-    return this.collector.getTimeUntilInStock(price);
   }
 }
 

@@ -5,6 +5,8 @@ import { upgradesId } from '../../src/upgrades/Upgrade';
 import { UpgradeManager } from '../../src/upgrades/UpgradeManager';
 import { ResourcesStock } from '../../src/resources/ResourcesStock';
 import { resourceId } from '../../src/resources/Resource';
+import {PurchaseHistory} from "../../src/simulation/PurchaseHistory";
+import {Timer} from "../../src/game/Timer";
 
 
 describe('test getAvailableUpgrades', () => {

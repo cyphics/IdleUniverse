@@ -10,8 +10,7 @@ class Game {
     this.stock = resourcesStock;
     this.history = new PurchaseHistory();
     this.timer = new Timer();
-    this.computer = new RateComputer(this.upgradesManager);
-    this.collector = new ResourcesCollector(this.computer, this.stock);
+    this.collector = new ResourcesCollector(this.upgradesManager.computer, this.stock);
     this.store = new UpgradeStore(this.upgradesManager, this.stock, this.history, this.timer);
   }
 

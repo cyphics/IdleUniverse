@@ -2,9 +2,9 @@ import { Time } from '../physics/time';
 import { resourcesIdList } from './Resource';
 
 class ResourcesCollector {
-  constructor(upgradesManager, resourcesStock) {
+  constructor(computer, resourcesStock) {
     this.stock = resourcesStock;
-    this.computer = upgradesManager.computer;
+    this.computer = computer;
   }
 
   generateResources(time) {

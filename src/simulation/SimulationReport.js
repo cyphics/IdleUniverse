@@ -57,7 +57,7 @@ class SimulationReport {
     this.final_report += '\n';
     this.final_report += 'Simulation completed. Remaining resources:\n';
     resourcesIdList.forEach((resId) => {
-      const resAmount = this.simulation.stock.getCurrentAmount(resId);
+      const resAmount = this.simulation.game.stock.getCurrentAmount(resId);
       if (resAmount > 0) {
         this.final_report += `${resId} | ${resAmount}\n`;
       }

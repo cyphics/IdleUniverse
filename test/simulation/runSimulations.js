@@ -4,6 +4,7 @@ import { Simulation, strategyId } from '../../src/simulation/Simulation';
 import { UpgradeManager } from '../../src/upgrades/UpgradeManager';
 import { ResourcesStock } from '../../src/resources/ResourcesStock';
 import { resourceId } from '../../src/resources/Resource';
+import { Game } from '../../src/game/Game';
 
 
 describe('run simulations', () => {
@@ -17,7 +18,8 @@ describe('run simulations', () => {
     stock.addResource(resourceId.copper, 20);
     stock.addResource(resourceId.lines_of_code, 40);
     stock.addResource(resourceId.knowledge, 60);
-    const simulation = new Simulation(manager, stock, strategyId.cheapest, 1000);
+    const game = new Game(manager, stock);
+    const simulation = new Simulation(game, strategyId.cheapest, 1000);
     simulation.run();
     const history = simulation.toString();
     console.log(history);

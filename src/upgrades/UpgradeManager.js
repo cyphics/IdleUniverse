@@ -32,7 +32,6 @@ class UpgradeManager {
 
   getAvailableUpgrades() {
     const availableUpgrades = [];
-    const l = this.upgrades;
     this.upgrades.forEach((up) => {
       if (this.isUpgradeAvailable(up)) availableUpgrades.push(up.id);
     });

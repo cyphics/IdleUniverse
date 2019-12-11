@@ -17,7 +17,7 @@ describe('ResourceCollector getTimeUntilInStock', () => {
   it('infinite time (no production)', () => {
     const manager = new UpgradeManager();
     const stock = new ResourcesStock();
-    const collector = new ResourcesCollector(manager, stock);
+    const collector = new ResourcesCollector(manager.computer, stock);
     const desiredResource = new ResourceAmount(resourceId.joule, 1);
     const price = new Price([desiredResource]);
     const time = collector.getTimeUntilInStock(price);
@@ -27,7 +27,7 @@ describe('ResourceCollector getTimeUntilInStock', () => {
     const manager = new UpgradeManager();
     manager.buyUpgrade(upgradesId.i_lvl_1_coil);
     const stock = new ResourcesStock();
-    const collector = new ResourcesCollector(manager, stock);
+    const collector = new ResourcesCollector(manager.computer, stock);
     const desiredResource = new ResourceAmount(resourceId.joule, 1);
     const price = new Price([desiredResource]);
     const time = collector.getTimeUntilInStock(price);
@@ -37,7 +37,7 @@ describe('ResourceCollector getTimeUntilInStock', () => {
     const manager = new UpgradeManager();
     manager.buyUpgrade(upgradesId.i_lvl_1_coil, 2);
     const stock = new ResourcesStock();
-    const collector = new ResourcesCollector(manager, stock);
+    const collector = new ResourcesCollector(manager.computer, stock);
     const desiredResource = new ResourceAmount(resourceId.joule, 2);
     const price = new Price([desiredResource]);
     const time = collector.getTimeUntilInStock(price);
@@ -47,7 +47,7 @@ describe('ResourceCollector getTimeUntilInStock', () => {
     const manager = new UpgradeManager();
     manager.buyUpgrade(upgradesId.i_lvl_1_coil, 1);
     const stock = new ResourcesStock();
-    const collector = new ResourcesCollector(manager, stock);
+    const collector = new ResourcesCollector(manager.computer, stock);
     const desiredResource = new ResourceAmount(resourceId.joule, 2);
     const price = new Price([desiredResource]);
     const time = collector.getTimeUntilInStock(price);
@@ -57,7 +57,7 @@ describe('ResourceCollector getTimeUntilInStock', () => {
     const manager = new UpgradeManager();
     manager.buyUpgrade(upgradesId.i_lvl_1_coil, 2);
     const stock = new ResourcesStock();
-    const collector = new ResourcesCollector(manager, stock);
+    const collector = new ResourcesCollector(manager.computer, stock);
     const desiredResource = new ResourceAmount(resourceId.joule, 1);
     const price = new Price([desiredResource]);
     const time = collector.getTimeUntilInStock(price);
@@ -70,7 +70,7 @@ describe('ResourceCollector getGeneratedResources', () => {
     const elapsedTime = new Time();
     const manager = new UpgradeManager();
     const stock = new ResourcesStock();
-    const collector = new ResourcesCollector(manager, stock);
+    const collector = new ResourcesCollector(manager.computer, stock);
     collector.generateResources(elapsedTime);
     const kinenergy = stock.getCurrentAmount(resourceId.joule);
     expect(kinenergy).to.be.eql(0);
@@ -80,7 +80,7 @@ describe('ResourceCollector getGeneratedResources', () => {
     const manager = new UpgradeManager();
     manager.buyUpgrade(upgradesId.i_lvl_1_coil);
     const stock = new ResourcesStock();
-    const collector = new ResourcesCollector(manager, stock);
+    const collector = new ResourcesCollector(manager.computer, stock);
     collector.generateResources(elapsedTime);
     const kinenergy = stock.getCurrentAmount(resourceId.joule);
     expect(kinenergy).to.be.eql(1);
@@ -90,7 +90,7 @@ describe('ResourceCollector getGeneratedResources', () => {
     const manager = new UpgradeManager();
     manager.buyUpgrade(upgradesId.i_lvl_1_coil, 5);
     const stock = new ResourcesStock();
-    const collector = new ResourcesCollector(manager, stock);
+    const collector = new ResourcesCollector(manager.computer, stock);
     collector.generateResources(elapsedTime);
     const kinenergy = stock.getCurrentAmount(resourceId.joule);
     expect(kinenergy).to.be.eql(5);
@@ -100,7 +100,7 @@ describe('ResourceCollector getGeneratedResources', () => {
     const manager = new UpgradeManager();
     manager.buyUpgrade(upgradesId.i_lvl_1_coil, 5);
     const stock = new ResourcesStock();
-    const collector = new ResourcesCollector(manager, stock);
+    const collector = new ResourcesCollector(manager.computer, stock);
     collector.generateResources(elapsedTime);
     const kinenergy = stock.getCurrentAmount(resourceId.joule);
     expect(kinenergy).to.be.eql(25);
