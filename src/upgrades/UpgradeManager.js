@@ -22,6 +22,10 @@ class UpgradeManager {
     return result;
   }
 
+  getType(upId) {
+    return this.getUpgradeById(upId).type;
+  }
+
   getAmountBought(upgradeId) {
     return this.getUpgradeById(upgradeId).amount_bought;
   }

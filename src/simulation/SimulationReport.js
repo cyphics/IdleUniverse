@@ -1,4 +1,4 @@
-import { resourcesIdList } from '../resources/Resource';
+import { resourceId, resourcesIdList } from '../resources/Resource';
 
 class SimulationReport {
   constructor(simulation) {
@@ -37,7 +37,7 @@ class SimulationReport {
   addPurchaseLine(timeStamp, id, price) {
     const timeLength = timeStamp.toString().length;
     const idLength = id.length;
-    let output = "";
+    let output = '';
     for (let i = 0; i < this.timeStampMaxLength - timeLength; i++) {
       output += ' ';
     }
@@ -62,6 +62,12 @@ class SimulationReport {
         this.final_report += `${resId} | ${resAmount}\n`;
       }
     });
+    this.final_report += '\n';
+    const nextUp = this.simulation.nextUpgrade;
+    const price = this.simulation.game.upgradesManager.getPrice(nextUp);
+    this.final_report += `Next upgrade : ${nextUp} (${price.toString()})\n\n`;
+    this.final_report += `Traveled distance: ${this.simulation.game.stock.getCurrentAmount(resourceId.traveled_distance)}\n`;
+    this.final_report += `Speed: ${this.simulation.game.stock.getCurrentAmount(resourceId.ship_speed)}\n`;
 
     this.final_report += this.getHorizontalLine();
   }

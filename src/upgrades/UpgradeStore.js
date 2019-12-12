@@ -1,5 +1,5 @@
-import {upgradesId} from "./Upgrade";
-import {resourceId} from "../resources/Resource";
+import { upgradesId } from './Upgrade';
+import { resourceId } from '../resources/Resource';
 
 class UpgradeStore {
   constructor(upgradesManager, resourcesStock, history, timer) {

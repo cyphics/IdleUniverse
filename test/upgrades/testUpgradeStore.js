@@ -44,7 +44,7 @@ describe('buy upgrades', () => {
   it('first purchase successful', () => {
     const manager = new UpgradeManager();
     const stock = new ResourcesStock();
-    stock.addResource(resourceId.joule, 10);
+    stock.addResource(resourceId.knowledge, 10);
     const store = new UpgradeStore(manager, stock);
     const result = store.buyUpgrade(upgradesId.st_terminal);
     expect(result).to.be.true;
@@ -52,7 +52,7 @@ describe('buy upgrades', () => {
   it('buy first upgrade and check available', () => {
     const manager = new UpgradeManager();
     const stock = new ResourcesStock();
-    stock.addResource(resourceId.joule, 10);
+    stock.addResource(resourceId.knowledge, 10);
     const store = new UpgradeStore(manager, stock);
     store.buyUpgrade(upgradesId.st_terminal);
     const upgrades = store.availableUpgrades;
@@ -61,10 +61,10 @@ describe('buy upgrades', () => {
   it('check stock depleted after purchase', () => {
     const manager = new UpgradeManager();
     const stock = new ResourcesStock();
-    stock.addResource(resourceId.joule, 20);
+    stock.addResource(resourceId.knowledge, 20);
     const store = new UpgradeStore(manager, stock);
     store.buyUpgrade(upgradesId.st_terminal);
-    const remainingStock = stock.getCurrentAmount(resourceId.joule);
+    const remainingStock = stock.getCurrentAmount(resourceId.knowledge);
     expect(remainingStock).to.eql(10);
   });
 });

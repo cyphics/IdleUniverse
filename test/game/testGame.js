@@ -5,7 +5,6 @@ import { ResourcesStock } from '../../src/resources/ResourcesStock';
 import { Game } from '../../src/game/Game';
 import { upgradesId } from '../../src/upgrades/Upgrade';
 import { resourceId } from '../../src/resources/Resource';
-import { Time } from '../../src/physics/time';
 
 require('../upgrades/testUpgradeManager');
 require('../upgrades/testUpgradeStore');
@@ -50,7 +49,7 @@ describe('Game state', () => {
     stock.addResource(resourceId.joule, 100);
     const game = new Game(manager, stock);
     game.store.buyUpgrade(upgradesId.i_kinetic_push);
-    game.jumpInTime(new Time(1));
+    game.jumpInTime(1);
     const distance = game.stock.getCurrentAmount(resourceId.traveled_distance);
     expect(distance).to.eql(1);
   });
@@ -61,8 +60,19 @@ describe('Game state', () => {
     const game = new Game(manager, stock);
     game.store.buyUpgrade(upgradesId.i_kinetic_push);
     game.store.buyUpgrade(upgradesId.i_kinetic_push);
-    game.jumpInTime(new Time(10));
+    game.jumpInTime(10);
     const distance = game.stock.getCurrentAmount(resourceId.traveled_distance);
     expect(distance).to.eql(20);
+  });
+
+  it('generate energy', () => {
+    const manager = new UpgradeManager();
+    const stock = new ResourcesStock();
+    stock.addResource(resourceId.copper, 20);
+    const game = new Game(manager, stock);
+    game.store.buyUpgrade(upgradesId.i_lvl_1_coil);
+    game.jumpInTime(1);
+    const energy = game.stock.getCurrentAmount(resourceId.joule);
+    expect(energy).to.eql(1);
   });
 });

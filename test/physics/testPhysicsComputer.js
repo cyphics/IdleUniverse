@@ -14,28 +14,26 @@ require('./testAcceleration');
 
 describe('getTraveledDistance()', () => {
   it('speed 0, duration 0, acceleration 0', () => {
-    const speed = new Speed();
-    const duration = new Time();
-    const acceleration = new Acceleration();
-    const traveledDistance = PhysicsComputer.getTraveledDistance(speed, duration, acceleration).value();
+    const duration = 0;
+    const traveledDistance = PhysicsComputer.getTraveledDistance(0, duration, 0).value();
     expect(traveledDistance).to.eql(0);
   });
   it('speed 1, duration 1, acceleration 0', () => {
-    const speed = new Speed(1);
-    const duration = new Time(1);
-    const acceleration = new Acceleration();
+    const speed = 1;
+    const duration = 1;
+    const acceleration = 0;
     expect(PhysicsComputer.getTraveledDistance(speed, duration, acceleration).value()).to.eql(1);
   });
   it('speed 100, duration 1, acceleration 0', () => {
-    const speed = new Speed(100);
-    const duration = new Time(1);
-    const acceleration = new Acceleration();
+    const speed = 100;
+    const duration = 1;
+    const acceleration = 0;
     expect(PhysicsComputer.getTraveledDistance(speed, duration, acceleration).value()).to.eql(100);
   });
   it('speed 0, duration 1, acceleration 1', () => {
-    const speed = new Speed();
-    const duration = new Time(1);
-    const acceleration = new Acceleration(1);
+    const speed = 0;
+    const duration = 1;
+    const acceleration = 1;
     expect(PhysicsComputer.getTraveledDistance(speed, duration, acceleration).value()).to.eql(0.5);
   });
 });

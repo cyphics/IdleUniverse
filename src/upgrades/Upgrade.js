@@ -56,12 +56,6 @@ class Upgrade {
 
 function getStructuralUpgrades() {
   return [
-    new Upgrade(upgradesId.st_terminal,
-      upgradeTypes.structure,
-      'Monitor actions',
-      new Price([new ResourceAmount(resourceId.joule, 10)]),
-      null,
-      []),
     new Upgrade(upgradesId.st_lvl_1_generator,
       upgradeTypes.structure,
       'Emergency generator',
@@ -88,6 +82,12 @@ function getStructuralUpgrades() {
 
 function getScienceUpgrades() {
   return [
+    new Upgrade(upgradesId.st_terminal,
+      upgradeTypes.science,
+      'Monitor actions',
+      new Price([new ResourceAmount(resourceId.knowledge, 10)]),
+      null,
+      []),
     new Upgrade(upgradesId.sc_kinetic_power,
       upgradeTypes.structure,
       'Push to move!',
@@ -134,7 +134,7 @@ function getIncrementalUpgrades() {
       'Add ponctual acceleration',
       new Price([new ResourceAmount(resourceId.joule, 100)]),
       1,
-      [upgradesId.st_kinetic_pusher]),
+      [upgradesId.prog_kinetic_transformation]),
     new Upgrade(upgradesId.i_energy_cell_a,
       upgradeTypes.incremental,
       'Add throttle',
@@ -178,4 +178,4 @@ function getCompleteUpgradesList() {
     .concat(getOneShotUpgrades());
 }
 
-export { getCompleteUpgradesList, upgradesId };
+export { getCompleteUpgradesList, upgradesId, upgradeTypes };

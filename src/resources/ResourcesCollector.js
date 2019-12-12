@@ -10,7 +10,7 @@ class ResourcesCollector {
   generateResources(time) {
     resourcesIdList.forEach((resId) => {
       const resourceRate = this.computer.getProductionRate(resId);
-      const resAmount = resourceRate * time.absoluteValue;
+      const resAmount = resourceRate * time;
       if (resAmount > 0) {
         this.stock.addResource(resId, resAmount);
       }

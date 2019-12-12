@@ -77,7 +77,7 @@ describe('ResourceCollector getGeneratedResources', () => {
     expect(kinenergy).to.be.eql(0);
   });
   it('one coil', () => {
-    const elapsedTime = new Time(1);
+    const elapsedTime = 1;
     const manager = new UpgradeManager();
     manager.buyUpgrade(upgradesId.i_lvl_1_coil);
     const stock = new ResourcesStock();
@@ -87,7 +87,7 @@ describe('ResourceCollector getGeneratedResources', () => {
     expect(kinenergy).to.be.eql(1);
   });
   it('multipe coils', () => {
-    const elapsedTime = new Time(1);
+    const elapsedTime = 1;
     const manager = new UpgradeManager();
     manager.buyUpgrade(upgradesId.i_lvl_1_coil, 5);
     const stock = new ResourcesStock();
@@ -97,7 +97,7 @@ describe('ResourceCollector getGeneratedResources', () => {
     expect(kinenergy).to.be.eql(5);
   });
   it('multiple ticks', () => {
-    const elapsedTime = new Time(5);
+    const elapsedTime = 5;
     const manager = new UpgradeManager();
     manager.buyUpgrade(upgradesId.i_lvl_1_coil, 5);
     const stock = new ResourcesStock();

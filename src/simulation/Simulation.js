@@ -1,7 +1,7 @@
-import { upgradesId } from '../upgrades/Upgrade';
-import { Timer } from '../game/Timer';
-import { PurchaseHistory } from './PurchaseHistory';
+import { upgradesId, upgradeTypes } from '../upgrades/Upgrade';
+
 import { SimulationReport } from './SimulationReport';
+import { resourceId } from '../resources/Resource';
 
 const strategyId = {
   broken: 'broken',
@@ -9,13 +9,15 @@ const strategyId = {
 };
 
 class Simulation {
-  constructor(game, stratId, time) {
+  constructor(game, time, stratId = strategyId.cheapest) {
     this.game = game;
     this.stratId = stratId;
     this.maxTime = time;
     this.timer = game.timer;
     this.history = game.history;
     this.isRunning = true;
+    this.timeToWaitForNextUpgrade = 0;
+    this.nextUpgrade = null;
   }
 
   run() {
@@ -25,45 +27,68 @@ class Simulation {
   }
 
   buyNextUpgrade() {
-    const nextUpgradeToBuy = this.getNextUpgradeToBuy();
-    if (nextUpgradeToBuy === null) {
+    this.nextUpgrade = this.getNextUpgradeToBuy();
+    if (this.nextUpgrade === null) {
       this.isRunning = false;
       return;
     }
-    const priceNextUpgrade = this.game.upgradesManager.getPrice(nextUpgradeToBuy);
-    const timeToWait = this.game.collector.getTimeUntilInStock(priceNextUpgrade);
-    if (timeToWait.absoluteValue === Infinity
-        || timeToWait.absoluteValue + this.timer.elapsedTime > this.maxTime) {
+    // const priceNextUpgrade = this.game.upgradesManager.getPrice(nextUpgradeToBuy);
+    if (this.timeToWaitForNextUpgrade === Infinity
+        || this.timeToWaitForNextUpgrade + this.timer.elapsedTime > this.maxTime) {
       this.isRunning = false;
+      this.game.jumpInTime(this.maxTime - this.timer.elapsedTime);
       return;
     }
-    this.game.jumpInTime(timeToWait);
+    this.generateClickableResources(this.nextUpgrade);
+    this.game.jumpInTime(this.timeToWaitForNextUpgrade);
     if (this.timer.elapsedTime > this.maxTime) this.isRunning = false;
-    const purchaseResult = this.game.store.buyUpgrade(nextUpgradeToBuy);
+    const purchaseResult = this.game.store.buyUpgrade(this.nextUpgrade);
     if (!purchaseResult) {
-      throw new Error(`Purchased of "${nextUpgradeToBuy}" failed!`);
+      throw new Error(`Purchased of "${this.nextUpgrade}" failed!`);
     }
   }
 
   getNextUpgradeToBuy() {
     let nextUpgrade = null;
-    let shortestTime = Infinity;
+    this.timeToWaitForNextUpgrade = Infinity;
     switch (this.stratId) {
       case strategyId.cheapest:
         this.game.store.availableUpgrades.forEach((upId) => {
+          if (nextUpgrade === null) nextUpgrade = upId;
+          const upType = this.game.upgradesManager.getType(upId);
           const price = this.game.upgradesManager.getPrice(upId);
-          const timeUntilAvailable = this.game.collector.getTimeUntilInStock(price).absoluteValue;
-          if (timeUntilAvailable < shortestTime) {
-            shortestTime = timeUntilAvailable;
+          let timeUntilAvailable;
+          if (upType === upgradeTypes.software || upType === upgradeTypes.science) {
+            timeUntilAvailable = price.getResources()[0].amount;
+          } else {
+            timeUntilAvailable = this.game.collector.getTimeUntilInStock(price).absoluteValue;
+          }
+          if (timeUntilAvailable < this.timeToWaitForNextUpgrade) {
+            this.timeToWaitForNextUpgrade = timeUntilAvailable;
             nextUpgrade = upId;
           }
         });
         break;
       case strategyId.broken:
       default:
-        nextUpgrade = upgradesId.i_lvl_1_coil;
+        nextUpgrade = null;
     }
+    if (nextUpgrade === null) throw new Error('No further upgrade found!');
     return nextUpgrade;
+  }
+
+  generateClickableResources(upgradeToBuy) {
+    let knowledgeToAdd = 0;
+    let linesOfCodeToAdd = 0;
+    const nextUpgradeType = this.game.upgradesManager.getType(upgradeToBuy);
+    if (nextUpgradeType === upgradeTypes.software) linesOfCodeToAdd = this.timeToWaitForNextUpgrade;
+    else if (nextUpgradeType === upgradeTypes.science) knowledgeToAdd = this.timeToWaitForNextUpgrade;
+    else {
+      knowledgeToAdd = this.timeToWaitForNextUpgrade / 2;
+      linesOfCodeToAdd = this.timeToWaitForNextUpgrade / 2;
+    }
+    this.game.stock.addResource(resourceId.knowledge, knowledgeToAdd);
+    this.game.stock.addResource(resourceId.lines_of_code, linesOfCodeToAdd);
   }
 
   getHistory() {
